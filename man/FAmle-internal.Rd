@@ -1,5 +1,5 @@
 \name{FAmle-internal}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{FAmle-internal}
 \alias{cdf.plot}
 \alias{delta.Q}

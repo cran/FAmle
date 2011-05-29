@@ -38,9 +38,9 @@ options(device = function(...) {
 
 Although the help files provided with \texttt{FAmle} are regarded as self-contained, such that the user should be able to get the package to work without having to rely upon extra documentation, a careful examination of the present document would nonetheless correspond to a good time investment. In other words, by carefully reading this document and by going through the examples one by one, the user will, besides from being exposed to the functions available in the package, benefit from seeing how those functions are actually being implemented in real problems.
 
-It seems worthwhile, at this point, to inform the potential user of this package about a few facts. First, as \texttt{FAmle} was originally developed in the context of univariate frequency analysis in flood hydrology, many of the examples presented herein are biased towards that specific topic. In fact, not only the examples are biased, but also some of the functions made available by this package. For example, in univariate flood frequency analysis, the main interest often lies in estimating quantiles for some high return periods; the former characterizing extreme flood events that occur with low probabilities. That said, although the main functions descried herein (i.e., those outlined in the sections titles) may be useful for estimating probability distributions regardless of the application field, the extra functions (as they will be presented below), were mostly written in view to tackle flood quantile estimations.  Secondly, although, without a single doubt, packages similar (with many respects) to \texttt{FAmle} may already exist, it is believed here that the greatest feature of the latter lies in its generality, with respect to both maximum likelihood estimation and Bayesian estimation of univariate frequency distributions (this goes without saying, however, that other possibly available packages are not general). Thirdly, and finally, the user should understand, before making any statistical inferences (e.g., significance tests, prior elicitation, or confidence intervals), that it is her/his responsibility to make sure that the theoretical arguments behind their use of the functions made available by \texttt{FAmle} are valid. For example, maximum likelihood estimators often benefit from nice asymptotic properties. However, there are conditions that must be met in order for such properties to apply, and, although good references will be given, such conditions will not explicitly be discussed in this document.
+It seems worthwhile, at this point, to inform the potential user of this package about a few facts. First, as \texttt{FAmle} was originally developed in the context of univariate frequency analysis in flood hydrology, many of the examples presented herein are biased towards that specific topic. In fact, not only the examples are biased, but also some of the functions made available by this package. For example, in univariate flood frequency analysis, the main interest often lies in estimating quantiles for some high return periods; the former characterizing extreme flood events that occur with low probabilities. That said, although the main functions descried herein (i.e., those outlined in the sections' titles) may be useful for estimating probability distributions regardless of the application field, the extra functions (as they will be presented below), were mostly written in view to tackle flood quantile estimations.  Secondly, although, without a single doubt, packages similar (with many respects) to \texttt{FAmle} may already exist, it is believed here that the greatest feature of the latter lies in its generality, with respect to both maximum likelihood estimation and Bayesian estimation of univariate frequency distributions (this goes without saying, however, that other possibly available packages are not general). Thirdly, and finally, the user should understand, before making any statistical inferences (e.g., significance tests, prior elicitation, or confidence intervals), that it is her/his responsibility to make sure that the theoretical arguments behind their use of the functions made available by \texttt{FAmle} are valid. For example, maximum likelihood estimators often benefit from nice asymptotic properties. However, there are conditions that must be met in order for such properties to apply, and, although good references will be given, such conditions will not explicitly be discussed in this document.
 
-This \texttt{vignette} is organized as follows. In Section~\ref{sec:fun:distr}, the \texttt{distr} function, which may be regarded as the chore of the \texttt{FAmle} package, is presented and described thoroughly. In Section~\ref{sec:fun:mle}, the \texttt{mle} function, which may be used to fit a parametric probability distribution to a given univariate dataset, is presented and put to work in an application to life-time data. Section~\ref{sec:fun:boot} briefly discusses the \texttt{boot.mle} function, which may be used to generate parametric bootstrap distributions from the fitted parametric model, while Section~\ref{sec:ci} illustrates how the so-generated bootstrap distributions may be used to derive different types of confidence intervals as well as to carry out two basic composite hypotheses tests with regard to the fitted distribution's plausibility in light of the actual dataset. The latter section also treats the topic of approximate normal confidence intervals for some quantile estimates.  Section~\ref{sec:newdist} deals with the declaration of new probability distributions, for the purpose of later using them in conjunction with the \texttt{FAmle} functions. Section~\ref{sec:FAdist} presents the \texttt{FAdist} package \citep{FAdist}, which contains a series probability distributions sometimes used in practice, but which are not available in R. The \texttt{metropolis} function, which may be used to carry out a full Bayesian estimation of the unknown parameters, is introduced and put to work in Section~\ref{sec:fun:metropolis}. Finally, Section~\ref{sec:future_versions} presents a list of features that will be made available in future versions of \texttt{FAmle}.
+This \texttt{vignette} is organized as follows. In Section~\ref{sec:fun:distr}, the \texttt{distr} function, which may be regarded as the chore of the \texttt{FAmle} package, is presented and described thoroughly. In Section~\ref{sec:fun:mle}, the \texttt{mle} function, which may be used to fit a parametric probability distribution to a given univariate dataset, is presented and put to work in an application to life-time data. Section~\ref{sec:fun:boot} briefly discusses the \texttt{boot.mle} function, which may be used to generate parametric bootstrap distributions from the fitted parametric model, while Section~\ref{sec:ci} illustrates how the so-generated bootstrap distributions may be used to derive different types of confidence intervals as well as to carry out two basic composite hypotheses tests concerning the fitted distribution's plausibility in light of the actual dataset. The latter section also treats the topic of approximate normal confidence intervals for some quantile estimates.  Section~\ref{sec:newdist} deals with the declaration of new probability distributions, for the purpose of later using them in conjunction with the \texttt{FAmle} functions. Section~\ref{sec:FAdist} presents the \texttt{FAdist} package \citep{FAdist}, which contains a series probability distributions sometimes used in practice, but which are not available in R. The \texttt{metropolis} function, which may be used to carry out a full Bayesian estimation of the unknown parameters, is introduced and put to work in Section~\ref{sec:fun:metropolis}.
 
 
 \section{The \texttt{distr} Function}
@@ -53,7 +53,7 @@ help(distr)
 @
 
 
-As may be understood from the help file discussed at the previous paragraph, \texttt{distr} is a function that allows to call any of the four functions that pertain to each one of the univariate probability distributions already available in \texttt{R}. For example, for the well known normal distribution, the following four functions are available: \texttt{dnorm}, \texttt{pnorm}, \texttt{qnorm}, and \texttt{rnorm}. Basically, these functions, when called and provided with the proper arguments, will respectively evaluate (and/or return) the following: the density function, the cumulative distribution function, the quantile function, and random variates. A numerical example shall make everything more obvious!
+As may be understood from the help file discussed at the previous paragraph, \texttt{distr} is a function that allows to call any of the four functions that pertain to each one of the univariate probability distributions already available in \texttt{R}. For example, for the well-known normal distribution, the following four functions are available: \texttt{dnorm}, \texttt{pnorm}, \texttt{qnorm}, and \texttt{rnorm}. Basically, these functions, when called and provided with the proper arguments, will respectively evaluate (and/or return) the following: the density function, the cumulative distribution function, the quantile function, and random variates. A numerical example shall make everything more obvious!
 <<>>=
 x <- -4:4
 x
@@ -79,7 +79,7 @@ dnorm(x=x,mean=0,sd=1,log=TRUE)
 distr(x=x,dist='norm',param=c(0,1),type='d',log=TRUE)
 @
 
-In other situations, it is convenient to evaluated a function for various parameter values. For example, given several pairs of location and scale parameters, one may wish to compute the p-th quantile of a normal distribution. Here is how this may be done using both \texttt{qnorm} and \texttt{distr}:
+In other situations, it is convenient to evaluate a function for various parameter values. For example, given several pairs of location and scale parameters, one may wish to compute the p-th quantile of a normal distribution. Here is how this may be done using both \texttt{qnorm} and \texttt{distr}:
 <<>>=
 p <- .95
 mu <- c(0,1,2)
@@ -111,7 +111,7 @@ The best way to start is by considering a simple example where a specific univar
 help(package='FAmle')
 data(package='FAmle')
 @
-For this first example, the \texttt{yarns} dataset, which was discussed by \citet{MCMC} (and references therein), is used. That dataset first needs to be loaded into \texttt{R}, and this may be done as follows:
+For this first example, the \texttt{yarns} dataset, which is used by \citet{MCMC} (and references therein), is considered. That dataset first needs to be loaded into \texttt{R}, and this may be done as follows:
 <<ex1-1,eval=TRUE,echo=TRUE,fig=TRUE,include=FALSE,width=7,height=5>>=
 data(yarns)
 x <- yarns[,1]
@@ -130,7 +130,7 @@ class(fit.x)
 \label{fig:ex1-1}
 \end{figure}
 
-Besides showing how fitting a distribution is done using \texttt{mle}, the above code chunk also illustrates the output that is returned when calling \texttt{print.mle} (note: that \texttt{mle} returns an object from the class \texttt{mle}, which allows it to work directly with \texttt{plot}). It can also be noticed, from the previous output, that some \texttt{goodness-of-fit} statistics are returned, in addition to the parameter estimates and their respective approximated standard errors (see \texttt{help(mle)} for more information). As will be shown later in this document, the \texttt{ad} and \texttt{rho} goodness-of-fit statistics may be used in order to derive composite hypotheses tests which permit to assess the fitted model's plausibility in light of the dataset at hand. For the moment, however, it is still worthwhile, as well as probably more informative, to try assessing the quality of the fitted model using diagnostic plots. Similar to \texttt{print.mle}, a function called \texttt{plot.mle} (see \texttt{help(plot.mle)}) may be used to generate a series of four diagnostic plots for the \texttt{mle} object stored within \texttt{fit.x}. For this example, the plots generated by \texttt{plot.mle} are presented by Figure~\ref{fig:ex1-2}.
+Besides showing how fitting a distribution is done using \texttt{mle}, the above code chunk also illustrates the output that is returned when calling \texttt{print.mle} (note: that \texttt{mle} returns an object from the class \texttt{mle}, which allows it to work directly with \texttt{plot}). It can also be noticed, from the previous output, that some \texttt{goodness-of-fit} statistics are returned, in addition to the parameter estimates and their respective estimators' approximated standard errors (see \texttt{help(mle)} for more information). As will be shown later in this document, the \texttt{ad} and \texttt{rho} goodness-of-fit statistics may be used in order to derive composite hypotheses tests which permit to assess the fitted model's plausibility in light of the dataset at hand. For the moment, however, it is still worthwhile, as well as probably more informative, to try assessing the quality of the fitted model using diagnostic plots. Similar to \texttt{print.mle}, a function called \texttt{plot.mle} (see \texttt{help(plot.mle)}) may be used to generate a series of four diagnostic plots for the \texttt{mle} object stored within \texttt{fit.x}. For this example, the plots generated by \texttt{plot.mle} are presented by Figure~\ref{fig:ex1-2}.
 <<ex1-2,fig=TRUE,eval=TRUE,echo=TRUE,include=FALSE,width=8,height=6>>=
 alpha <- .05
 plot(x=fit.x,ci=TRUE,alpha=alpha)
@@ -149,7 +149,7 @@ names(fit.x)
 @
 Obviously, all of these elements are described in detail by the \texttt{mle} help file, and that file should again be consulted by the reader before continuing.
 
-In Section~\ref{sec:fun:distr}, the \texttt{distr} function was thoroughly described, but the arguments \texttt{model} was left uncommented. Here, a few additional simple examples are given on how the returned \texttt{fit.x} object, for instance, may be used in conjunction with \texttt{distr}. In many practical problems dealing with time-to-failure data, interests often lies in the survival function. For example, for the \texttt{yarns} dataset, one might wish to obtain an estimate of the probability of survival above a certain amount of time units. In this case, assuming that $F_X \sim Weibull(\alpha,\beta)$, with $\hat{\alpha}$ and $\hat{\beta}$ corresponding to the maximum likelihood parameter estimates of the Weibull distribution for the \texttt{yarns} dataset, what is $\text{Pr}[X \geq  400\mid \hat{F}_X ]$? For the fitted model, the \texttt{distr} function may be used to compute that probability:
+In Section~\ref{sec:fun:distr}, the \texttt{distr} function was thoroughly described, but the arguments \texttt{model} was left uncommented. Here, a few additional simple examples are given on how the returned \texttt{mle} object stored in \texttt{fit.x}, for instance, may be used in conjunction with \texttt{distr}. In many practical problems dealing with time-to-failure data, interests often lies in the survival function. For example, for the \texttt{yarns} dataset, one might wish to obtain an estimate of the probability of survival above a certain amount of time units. In this case, assuming that $F_X \sim Weibull(\alpha,\beta)$, with $\hat{\alpha}$ and $\hat{\beta}$ corresponding to the maximum likelihood parameter estimates of the Weibull distribution for the \texttt{yarns} dataset, what is $\text{Pr}[X \geq  400\mid \hat{F}_X ]$? For the fitted model, the \texttt{distr} function may be used to compute that probability:
 <<>>=
 x.obs <- 400
 distr(x=x.obs,dist=fit.x$dist,param=fit.x$par.hat,type='p',lower.tail=FALSE)
@@ -246,7 +246,7 @@ plot(x=fit.y,ci=TRUE,alpha=alpha)
 \caption{Diagnostic plots for the \Sexpr{fit.y[['dist']]} model fitted to the \texttt{station01AJ010} dataset. The dashed red lines correspond to the lower and upper confidence bounds of the approximate \Sexpr{100*(1-alpha)}\% confidence intervals derived using the observed Fisher's information matrix in conjunction with the well-known delta method.}
 \label{fig:ex2-2}
 \end{figure}
-Judging by Figure~\ref{fig:ex2-2}, the gamma distribution does seem to be fitting quite well in this case. Nonetheless, of greater interest here are the parameter estimates and their approximate standard errors, as shown by the previous code chunk. As well explained in \texttt{help(mle)}, the parameter estimators' standard errors are computed/approximated here using the observed Fisher's information matrix, i.e., the negative of the inverse of the Hessian matrix evaluated at the estimated parameter values (note: here since \texttt{optim} is used to minimize the negative of the log-likelihood function, the Hessian is taken as returned and inverted to yield the observed Fisher's information). Under certain conditions (not discussed here), the maximum likelihood parameter estimates may be regarded as realized values of random variables (their estimators) that are approximately distributed according to a multivariate normal distribution with mean corresponding to the true parameter values and covariance matrix approximately equal to Fisher's information evaluated at the true parameter values. Obviously, the true parameter values are almost never known, such that the covariance matrix has to be estimated by either plugging the fitted parameter values into Fisher's information, or by simply using the observed Fisher's information. In this case, the second option is being use for generality. All of this is done automatically by \texttt{mle}, but, for clarity, the following code chunk shows how this may be done by directly using the optimization output provided by \texttt{optim} -- see \texttt{help(mle)} and \texttt{help(optim)}:
+Judging by Figure~\ref{fig:ex2-2}, the gamma distribution does seem to be fitting quite well in this case. Nonetheless, of greater interest here are the parameter estimates and the associated estimators' approximate standard errors, as shown by the previous code chunk. As well explained in \texttt{help(mle)}, the parameter estimators' standard errors are computed/approximated here using the observed Fisher's information matrix, i.e., the negative of the inverse of the Hessian matrix evaluated at the estimated parameter values (note: here since \texttt{optim} is used to minimize the negative of the log-likelihood function, the Hessian is taken as returned and inverted to yield the observed Fisher's information). Under certain conditions (not discussed here), the maximum likelihood parameter estimates may be regarded as realized values of random variables (their estimators) that are approximately distributed according to a multivariate normal distribution with mean corresponding to the true parameter values and covariance matrix approximately equal to Fisher's information evaluated at the true parameter values. Obviously, the true parameter values are almost never known, such that the covariance matrix has to be estimated by either plugging the fitted parameter values into Fisher's information, or by simply using the observed Fisher's information. In this case, the second option is being use for generality. All of this is done automatically by \texttt{mle}, but, for clarity, the following code chunk shows how this may be done by directly using the optimization output provided by \texttt{optim} -- see \texttt{help(mle)} and \texttt{help(optim)}:
 <<>>=
 names(fit.y)
 cov.hat.y <- solve(fit.y$fit$hessian)
@@ -254,15 +254,15 @@ se.asy <- sqrt(diag(cov.hat.y))
 se.asy
 @
 
-Now, it well known that those standard errors correspond to large sample approximations and that they may be inaccurate for relatively small sample sizes. In this case, only \Sexpr{fit.y[['n']]} observations are available for \texttt{y}, and it might be suspected that the large sample approximations motivated by maximum likelihood theory may fail. When this happens, it is usually deemed safer to assess the parameter estimators (joint) sampling distribution by Monte Carlo methods. In other words, it is quite easy, given a fitted model, to run a simulation experiment in order to assess the variability of some quantities of interest in light of some theoretical model. Apart from being computationally intensive, the task at hand is relatively simple. In fact, the \texttt{boot.mle} function was written to carry out that task, and the following code chunk illustrates how the latter function may be used to obtain bootstrap samples from the fitted model \texttt{fit.y}.
+Now, it is well known that those standard errors correspond to large sample approximations and that they may be inaccurate for relatively small sample sizes. In this case, only \Sexpr{fit.y[['n']]} observations are available for \texttt{y}, and it might be suspected that the large sample approximations motivated by maximum likelihood theory may fail. When this happens, it is usually deemed safer to assess the parameter estimators (joint) sampling distribution by Monte Carlo methods. In other words, it is quite easy, given a fitted model, to run a simulation experiment in order to assess the variability of some quantities of interest in light of some theoretical model. Apart from being computationally intensive, the task at hand is relatively simple. In fact, the \texttt{boot.mle} function was written to carry out that task, and the following code chunk illustrates how the latter function may be used to obtain bootstrap samples from the fitted model \texttt{fit.y}.
 <<>>=
-boot.y <- boot.mle(model=fit.y,B=5000)
+boot.y <- boot.mle(model=fit.y,B=2500)
 names(boot.y)
 se.boot <- apply(boot.y[['par.star']],2,sd)
 cbind(asymptotic.se=se.asy,bootstrap.se=as.numeric(se.boot))
 @
 
-In addition to illustrating how bootstrap samples may be generated using \texttt{boot.mle}, the above code chunk shows how the latter's output may be used for computing the parameter estimates standard errors. These values are then compared with those previously obtained using the observed Fisher's information. Clearly, the two do not tell the same story: one of the the bootstrap standard errors is substantially larger than its large sample counterpart. Figure~\ref{fig:ex2-3}, generated from the code chunk shown bellow, further illustrates that difference.
+In addition to illustrating how bootstrap samples may be generated using \texttt{boot.mle}, the above code chunk shows how the latter's output may be used for computing the parameter estimators' standard errors. These values are then compared with those previously obtained using the observed Fisher's information. Clearly, the two do not tell the same story: one of the the bootstrap standard errors is substantially larger than its large sample counterpart. Figure~\ref{fig:ex2-3}, generated from the code chunk shown bellow, further illustrates that difference.
 
 <<ex2-3,eval=TRUE,fig=TRUE,echo=TRUE,include=FALSE,width=8,height=6>>=
 z1 <- seq(-4*se.asy[1],4*se.asy[1],length.out=100)+fit.y[['par.hat']][1]
@@ -285,17 +285,18 @@ The \texttt{boot.mle} function returns other arguments that are not discussed he
 \section{Approximate Confidence Intervals and Hypotheses Tests}
 \label{sec:ci}
 
-This section deals with two main topics: quantile confidence intervals and composite hypotheses tests. As stated in Section~\ref{sec:intro}, different types of applications will require different types of inferences. Although \texttt{FAmle} may be useful for carrying tasks in several fields of application, only examples with hydrometeorological variables will be considered for the remaining part of this document. For that type of applications, for example, one is often concerned with making inferences regarding theoretical quantiles corresponding to extreme meteorological events that occur with small probabilities. But before discussing quantile confidence intervals, the concept of hypotheses tests is briefly addressed.
+This section deals with two main topics: quantile confidence intervals and composite hypotheses tests. As stated in Section~\ref{sec:intro}, different types of applications will require different types of inferences. Although \texttt{FAmle} may be useful for carrying tasks in several fields of application, only examples with hydrometeorological variables will be considered for the remaining part of this document. For that type of applications, for example, one is often concerned with making inferences regarding theoretical quantiles corresponding to extreme meteorological events that occur with small probabilities. But before discussing quantile confidence intervals, the concept of goodness-of-fit testing is briefly addressed.
 
-As already mentioned in Section~\ref{sec:fun:mle}, \texttt{mle} computes and returns goodness-of-fit statistics. Although, for a particular example, those values may be used as a means of choosing between several fitted distributions, it is also possible to use some of the latter in order to construct simple hypotheses tests. For example, \texttt{ad} is known to give more weight to observations in the tails of the distributions than to those in the center, such that is is often regarded as a good statistic for detecting potential poor fits at those levels. As another example, Pearson's correlation coefficient between the fitted quantiles and the observed ones may also be useful for detecting poor fits. That said, a natural question to ask when fitting a parametric model to a given dataset is the following: "\textit{Does it make sense to assume that the observed data could actually have been generated from the fitted model}"? To put it another way, to what extent is the fitted model consistent with the data that was used in fitting it? An answer to that question may be obtained by constructing a simple hypotheses test based on some observed statistic that is particular to either or both the observed data and the fitted model. For example, if \texttt{ad} was used to assess the fitted model's plausibility in light of the data, the goal would be to check at what level the observed \texttt{ad} statistic fell into its respective sampling distribution. But since, in practice, the true parameter values are seldom known, the true sampling distribution for the statistic of interest cannot be obtained (unless, of course, the statistic is a \textit{pivot},  -- that it does not depend upon some unknown parameter(s)). An alternative is thus to derive a test that is conditional on the fitted model. In other words, if the data has in fact been generated from the fitted model, then what is the probability of observing a value as extreme or more extreme than the statistic that was actually observed. Here, for the \texttt{ad} statistic, the goal would be to compute the probability of observing a value as high or even higher than what was observed -- this is the definition of the well-known \textit{p-value}.
+As already mentioned in Section~\ref{sec:fun:mle}, \texttt{mle} computes and returns goodness-of-fit statistics. Although, for a particular example, those values may be used as a means of choosing between several fitted distributions, it is also possible to use some of the latter in order to construct simple hypotheses tests. For example, \texttt{ad} is known to give more weight to observations in the tails of the distributions than to those in the center, such that is is often regarded as a good statistic for detecting departures from distributional assumptions in the tails. As another example, Pearson's correlation coefficient between the fitted quantiles and the observed ones may also be useful for detecting poor fits. That said, a natural question to ask when fitting a parametric model to a given dataset is the following: "\textit{Does it make sense to assume that the observed data could actually have been generated from the fitted model}"? To put it another way, to what extent is the fitted model consistent with the data that was used in fitting it? An answer to that question may be obtained by constructing a simple hypothesis test based on some observed statistic that is particular to either or both the observed data and the fitted model. For example, if \texttt{ad} was used to assess the fitted model's plausibility in light of the data, the goal would be to check at what level the observed \texttt{ad} statistic fell into its respective sampling distribution. But since, in practice, the true parameter values are seldom known, the true sampling distribution for the statistic of interest cannot be obtained (unless, of course, that the statistic is the same for all possible parameter values). An alternative is thus to derive a test that is conditional on the fitted model. In other words, if the data has in fact been generated from the fitted model, then what is the probability of observing a value as extreme or more extreme than the statistic that was actually observed. Here, for the \texttt{ad} statistic, the goal would be to compute the probability of observing a value as high or even higher than what was observed -- this is the definition of the well-known \textit{p-value}.
 
-That said, given the fitted \Sexpr{fit.y[['dist']]} model obtained for the previous example, the idea is to draw many samples from the fitted model, and for each new sample, to re-estimate the parameters and to compute a new \texttt{ad} statistic. That way, the hypothetical sampling distribution of \texttt{ad} will be obtained (approximately) and then be used to approximate the p-value of the test. It turns out that this can be achieve using \texttt{boot.mle}. In fact, \texttt{boot.mle} does return the p-values for the two tests discussed here:
+That said, given the fitted \Sexpr{fit.y[['dist']]} model obtained for the previous example, the idea is to draw many samples from the fitted model, and for each new sample, to re-estimate the parameters and to compute a new realized \texttt{ad} statistic. That way, the hypothetical sampling distribution of \texttt{ad} will be empirically approximated and then be used to approximate the p-value of the test. It turns out that this can be achieve using \texttt{boot.mle}. In fact, \texttt{boot.mle} does return the p-values for the two tests discussed here:
 <<>>=
 boot.y[['p.value']]
 @
-Thus, based on these two criteria, since observing values as extreme or more extreme than the latter two could likely be the result of chance alone, there are no reasons why one should doubt the hypotheses according to which the \Sexpr{fit.y[['dist']]} distribution is a plausible model for the data at hand. To put it another way, the model is consistent with the data. For more information regarding composite hypotheses tests as well as so-called parametric bootstrap tests, the interested reader is referred to the following two excellent books: \citet{Cox} and \citet{Davison}. Finally, it should be understood that tests such as those derived above are often considered as highly hypothetical \citep[e.g., ][]{Rice,Cox}, and that, although they might be useful for quickly assessing the fitted model's plausibility, one should never give them too much importance, as no such thing as a true distribution does exist for most practical situations.
+Thus, based on these two criteria, since observing values as extreme or more extreme than the latter two could likely be the result of chance alone, there are no reasons why one should doubt the hypothesis according to which the \Sexpr{fit.y[['dist']]} distribution is a plausible model for the data at hand. To put it another way, the model is consistent with the data. For more information regarding composite hypotheses tests as well as so-called parametric bootstrap tests, the interested reader is referred to the following two excellent books: \citet{Cox} and \citet{Davison}. Finally, it should be recalled that tests such as those derived above are often considered as highly hypothetical \citep[e.g., ][]{Rice,Cox}, as no such thing as a true distribution does exist for most practical situations. Nonetheless, in many instances, those tests are still very useful for quickly assessing the fitted model's plausibility.
 
-So far, from both Figure~\ref{fig:ex2-2} and the tests results shown above, it seems reasonable to look at the fitted \Sexpr{fit.y[['dist']]} distribution as a suitable model for the purpose of describing the \texttt{station01AJ010} dataset, such that it would now seem appropriate to move on to statistical inference for some quantities of interests, in this case, the quantile estimates for some high return periods. More precisely, for a return period $T$, $Q_T$ corresponds to the quantile value which is expected, in a series of independent samples of equal size $n$, to occur (or be exceeded) no more than once every $T$-year period -- for the random variable $X$ with cumulative distribution function $F$, $Q_T = F^{-1}(p)$ if $p = 1 - 1/T$. That said, for the \texttt{station01AJ010} dataset, one may wish to obtain quantile estimates for the following return periods:
+
+So far, from both Figure~\ref{fig:ex2-2} and the tests results shown above, it seems reasonable to look at the fitted \Sexpr{fit.y[['dist']]} distribution as a suitable model for the purpose of describing the \texttt{station01AJ010} dataset, such that it would now seem appropriate to move on to statistical inference for some quantities of interests, in this case, the quantile estimators for some high return periods. More precisely, for a return period $T$, $Q_T$ corresponds to the quantile value which is expected, in a series of independent samples of equal size $n$, to occur (or to be exceeded) no more than once every $T$-time period -- for the random variable $X$ with cumulative distribution function $F$, $Q_T = F^{-1}(p)$ if $p = 1 - 1/T$. In this case, the return period $T$ is in years. That said, for the \texttt{station01AJ010} dataset, one may wish to obtain quantile estimates for the following return periods:
 <<>>=
 RP <- c(2,10,20,50,100,500)
 p <- 1 - 1/RP
@@ -321,7 +322,7 @@ Q.conf.int(p=p,model=fit.y,alpha=alpha,ln=TRUE)[c(1,3),]
 Q.boot.ci(p=p,boot=boot.y,alpha=alpha)[['percentile']][c(1,3),]
 Q.boot.ci(p=p,boot=boot.y,alpha=alpha)[['reflexion']][c(1,3),]
 @
-Before commenting on those confidence intervals, it is informative to look at Figure~\ref{fig:ex2-4} for a visual assessment of the estimated quantiles' bootstrap distributions. The following code chunk illustrates how those distributions may be obtained and plotted. Also visible from that code is the \texttt{delta.Q} function, which is used to obtain the quantile estimates and there estimated standard errors.
+Before commenting on those confidence intervals, it is informative to look at Figure~\ref{fig:ex2-4} for a visual assessment of the estimated quantiles' bootstrap distributions. The following code chunk illustrates how those distributions may be obtained and plotted. Also visible from that code is the \texttt{delta.Q} function, which is used to obtain the quantile estimates and their estimators' standard errors.
 <<ex2-4,fig=TRUE,include=FALSE,eval=TRUE,echo=TRUE>>=
 Q.boot.dist <- sapply(as.list(p),function(h) distr(h,dist=fit.y[['dist']],param=boot.y[['par.star']],type='q'))
 Q.norm <- sapply(as.list(p),function(h) delta.Q(p=h,model=fit.y,ln=FALSE))
@@ -335,23 +336,23 @@ for(i in 1:ncol(Q.boot.dist))
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{FAmle-ex2-4}
-\caption{Histograms for the quantile bootstrap distributions with return periods $T = \left\{\Sexpr{paste(RP,collapse=', ')} \right\}$, which were obtained from the fitted \Sexpr{fit.y[['dist']]} to the \texttt{station01AJ010} dataset. The red curves -- normal densities with scale parameter equal to the approximate quantile variance and location parameters taken to be equal to the respective quantile estimates -- are added to illustrate the similarities between the sampling variance estimated using the normal approximation (in conjunction with the delta method) and the actual spread of the bootstrap distributions. In this case, it seems that the bootstrap distributions are somewhat centered around the maximum likelihood quantile estimates.}
+\caption{Histograms for the quantile bootstrap distributions with return periods $T = \left\{\Sexpr{paste(RP,collapse=', ')} \right\}$, which were obtained from the fitted \Sexpr{fit.y[['dist']]} to the \texttt{station01AJ010} dataset. The red curves -- normal densities with scale parameter equal to the approximate quantile variance and location parameters taken to be equal to the respective quantile estimates -- are added to illustrate the similarities between the sampling variance estimated using the normal approximation (in conjunction with the delta method) and the actual spread of the bootstrap distributions. In this case, it appears that the bootstrap distributions are somewhat centered around the maximum likelihood quantile estimates.}
 \label{fig:ex2-4}
 \end{figure}
 From Figure~\ref{fig:ex2-4}, it can be observed that the large sample quantile variance approximations are somewhat consistent with the bootstrap variance counterparts, regardless of what was previously observed for the parameters themselves (see Figure~\ref{fig:ex2-3}). In other words, although the large sample shape parameter variance approximation was clearly less than that of its bootstrap counterpart, it does not seem to be the case for the quantile variance estimates discussed here. In addition, most of the quantile bootstrap distributions are nearly symmetrical, which might explain why the different types of confidence intervals shown above yield results that are somewhat similar (except for the normal intervals computed on the log-quantile scale)
 
-Finally, there are a two facts that must be understood about the approximate quantile confidence intervals presented and discussed in this section:
+Finally, there are a two facts that must be recalled about the approximate quantile confidence intervals presented and discussed in this section:
 \begin{itemize}
-	\item The intervals presented above are not random -- they are realized values of some random intervals. This means that those realized intervals either contain or do not contain the true quantile value that is being estimated. That said, when interpreting such intervals, a probability statement is not being made with regard to the true quantile value, but rather with regard to the statistical procedure that is used to estimate it. In other words, if the fitted model is indeed the true distribution from which the observed data have arisen, and that the experiment (i.e., data collection, estimation, and confidence intervals derivation) could be repeated many times, then, for a nominal level $1-\alpha$, the long run average of the intervals that do succeed in covering the true quantile value would lie close to $1-\alpha$ (it should be noted, however, that poor coverage probabilities might still occur depending on the type of interval used). Obviously, as it was said for the hypotheses tests derived previously, the present definition is also quite hypothetical. Nonetheless, it is still very informative with respect to the variability that should be expected when estimating theoretical quantiles using parametric distributions.
-	\item The bootstrap intervals and the normal intervals that are discussed in this document are not exact -- they are approximate confidence intervals. Roughly, for the bootstrap intervals, it is assumed that the true maximum likelihood quantile estimator's sampling distribution -- sampling distribution that would be obtained from generating random samples from the true parametric model -- can be fairly well approximated by the hypothetical sampling distribution obtained from bootstrapping the estimated model. On the other hand, roughly, the normal intervals assumes that the maximum likelihood quantile estimate corresponds to a realized value of a random variable (its estimator) that is approximately normally distributed with mean equal to the true quantile value and variance that may be fairly well approximated using Fisher's information matrix evaluated at the true parameter values (in conjunction with the delta method). Here, however, since the true parameter values are not known, Fisher's information may be approximated by either the observed Fisher's information (as it is the case here) or by evaluating Fisher's information at the estimated parameter values. Obviously, this second approach assumes more than the bootstrap (see \citet{Davison} and \citet{Rice} for good discussions about confidence intervals).
+	\item The numerical intervals presented in the application above are not random -- they are realized values of some random intervals. This means that those realized intervals either contain or do not contain the true quantile value that is being estimated. That said, when interpreting such intervals, a probability statement is not being made with regard to the true quantile value, but rather with regard to the statistical procedure that is used to estimate it. In other words, if the fitted model is indeed the true distribution from which the observed data have arisen, and that the experiment (i.e., data collection, estimation, and confidence intervals derivation) could be repeated many times, then, for a nominal level $1-\alpha$, the long run average of the intervals that do succeed in covering the true quantile value would lie close to $1-\alpha$ (it should be noted, however, that poor coverage probabilities might still occur depending on the type of interval used). Obviously, as it was said for the hypotheses tests derived previously, the present definition is also quite hypothetical. Nonetheless, it is still very informative with respect to the variability that should be expected when estimating theoretical quantiles using parametric distributions.
+	\item The bootstrap intervals and the normal intervals that are discussed in this document are not exact -- they are approximate confidence intervals. Roughly, for the bootstrap intervals, it is assumed that the true maximum likelihood quantile estimator's sampling distribution -- sampling distribution that would be obtained from generating random samples from the true parametric model -- can be fairly well approximated by the hypothetical sampling distribution obtained from bootstrapping the estimated model. On the other hand, roughly, the normal intervals assume that the maximum likelihood quantile estimate corresponds to a realized value of a random variable (its estimator) that is approximately normally distributed with mean equal to the true quantile value and variance that may be fairly well approximated using Fisher's information matrix evaluated at the true parameter values (in conjunction with the delta method). Here, however, since the true parameter values are not known, Fisher's information may be approximated by either the observed Fisher's information (as it is the case here) or by evaluating Fisher's information at the estimated parameter values. Obviously, this second approach assumes more than the bootstrap (see \citet{Davison} and \citet{Rice} for good discussions about confidence intervals).
 \end{itemize}
 
 
 \section{Declaration of New Probability Distributions}
 \label{sec:newdist}
-In the previous section, a numerical example in which a \Sexpr{fit.y[['dist']]} model was fitted to a dataset of annual maximum average daily flows (in $m^3/s$) was considered. At that point, it was assumed, based on both visual assessments and hypotheses testing, that the latter family of distributions was suitable for the purpose of describing the dataset at hand. Nonetheless, it was briefly mentioned that other families of distributions were sometimes to be preferred, based on certain theoretical arguments, when dealing with such extreme data. More precisely, when dealing with, for example, annual maximum average daily flows, the so-called \textit{generalized extreme value} (GEV) distribution is often regarded as a plausible model -- under certain conditions \citep[e.g.,][]{Coles}, extreme observations will likely start to behave as realized values of a random variable asymptotically distributed (this is the concept of convergence in distribution) according to one of three types of limiting distributions; GEV containing each of them three as special cases.
+In the previous section, a numerical example in which a \Sexpr{fit.y[['dist']]} model was fitted to a dataset of annual maximum average daily flows (in $m^3/s$) was considered. At that point, it was assumed, based on both visual assessments and goodness-of-fit testing, that the latter family of distributions was suitable for the purpose of describing the dataset at hand. Nonetheless, it was briefly mentioned that other families of distributions were sometimes to be preferred, based on certain theoretical arguments, when dealing with such extreme data. More precisely, when dealing with, for example, annual maximum average daily flows, the so-called \textit{generalized extreme value} (GEV) distribution is often regarded as a plausible model -- under certain conditions \citep[e.g.,][]{Coles}, extreme observations will likely start to behave as realized values of a random variable asymptotically distributed (this is the concept of convergence in distribution) according to one of three types of limiting distributions; GEV containing each of them three as special cases.
 
-Since the \texttt{station01AJ010} dataset is consistent with the extreme value framework described by \citet{Coles}, it would be interesting to fit GEV to that dataset. However, functions for the GEV model are not available in \texttt{R}. Although there exist numerous packages on CRAN which do contain those functions, the latter are relatively easy to program, and this is what will be done in this section. In fact, since they will be written with the intention to later be used with the \texttt{FAmle} functions, it will be important to make sure that those new functions are consistent with all such functions already available in \texttt{R}. That way, no problems should occur when they are used to carry out tasks similar to those that have so far been discussed here.
+Since the \texttt{station01AJ010} dataset is consistent with the extreme value framework described by \citet{Coles}, it would be interesting to fit GEV to that dataset. However, functions for the GEV model are not available in \texttt{R}. Although there exist numerous packages on CRAN which do contain those functions, the latter are relatively easy to program, and this is what will be done in this section. In fact, since they will be written with the intention of later being used with the \texttt{FAmle} functions, it will be important to make sure that those new functions are consistent with all such functions already available in \texttt{R}. That way, no problems should occur when they are used to carry out tasks similar to those that have so far been discussed in this tutorial.
 
 <<>>=
 dGEV <- function(x,shape=1,scale=1,location=0,log=FALSE)
@@ -390,12 +391,12 @@ Finally, the code chunk shown below is presented as a means of illustrating how 
 Q.conf.int(p=p,model=fit.y,alpha=alpha)
 Q.conf.int(p=p,model=fit.y.gev,alpha=alpha)
 @
-As visible from the previous output, quantile uncertainty is much more pronounced for the GEV model. In fact, given that only \Sexpr{fit.y.gev[['n']]} observations were used in fitting those two models, half of the quantile estimates correspond to extrapolations (i.e., those for the return periods $T = \left\{\Sexpr{paste(RP[4:6],collapse=', ')} \right\})$, such that it is not unreasonable at all to observe large uncertainties at those levels (this is especially true for GEV).
+As visible from the previous output, quantile uncertainty is much more pronounced for the GEV model, but this is to be expected since it has one more parameter than gamma. Moreover, given that only \Sexpr{fit.y.gev[['n']]} observations were used in fitting those two models, half of the quantile estimates correspond to extrapolations (i.e., those for the return periods $T = \left\{\Sexpr{paste(RP[4:6],collapse=', ')} \right\})$, such that it is not unreasonable at all to observe large uncertainties at those levels (again, this is especially true for GEV).
 
 \section{The R package \texttt{FAdist}}
 \label{sec:FAdist}
 
-The previous section has dealt with the declaration of functions that pertain to a new univariate distribution that is not available in the \texttt{R} environment; i.e., the GEV distribution. In this section, a package containing such functions for various distributions is presented. In fact, not much needs to be said here; the only thing being that the package name is \texttt{FAdist}\footnote{See \citet{FAdist}.}, and that, at the time of writing of this document, the latter could be downloaded at the following address: https://sites.google.com/site/aucoinstat/. Once downloaded, the \texttt{FAdist} package may be installed and loaded (see \texttt{help(package='FAdist')} for more information).
+The previous section has dealt with the declaration of functions that pertain to a new univariate distribution that is not available in the \texttt{R} environment; i.e., the GEV distribution. In this section, a package containing such functions for various distributions is presented. Actually, not much needs to be said here; the only thing being that the package name is \texttt{FAdist}\footnote{See \citet{FAdist}.}, and that, at the time of writing of this document, the latter could be downloaded from CRAN. Once downloaded, the \texttt{FAdist} package may be installed and loaded (see \texttt{help(package='FAdist')} for more information).
 
 Just to give a quick example, in the code chunk below, a three-parameter lognormal distribution, made available when loading \texttt{FAdist}, is fitted to \texttt{y} (note that this new distribution is based on the \texttt{R} function \texttt{lnorm}):
 <<echo=TRUE,eval=TRUE>>=
@@ -412,7 +413,7 @@ It should also be said here that the \texttt{FAmle} package was originally desig
 
 The \texttt{metropolis} function is based on a specific version of the Metropolis algorithm \citep{Metropolis}, such that it approximates the posterior distribution using a Markov Chain - the returned distribution corresponds to time correlated draws from the posterior distribution (see the details in \texttt{help(metropolis)}). The algorithm used is well described by \citet{Gilks}, \citet{BMDA}, and \citet{MCMC}. Here, no attention will be given to topics such as tunning of the Metropolis algorithm or MCMC convergence; only examples on how to use the \texttt{metropolis} function will be presented. For more information about those topics, the reader is again referred to excellent texts such as \citet{Gilks}, \citet{BMDA}, \citet{BDA}, and \citet{MCMC}, as well as to the various references given therein. Finally, before continuing with the examples below, the reader should carefully examine the help file available for \texttt{metropolis}.
 
-The first dataset that will be used in this section is taken from \citet{Coles} and consists of 64 sea level (in meters) yearly maxima for the time period 1923-1987 -- here it will be called the \texttt{ColesData} dataset (see \texttt{help(ColesData)} for more detail).
+The first dataset that will be used in this section is taken from \citet{Coles} and consists of 64 sea level (in meters) yearly maxima for the time period 1923-1987 -- here it will be referred to as the \texttt{ColesData} dataset (see \texttt{help(ColesData)} for more detail).
 <<>>=
 data(ColesData)
 z <- ColesData[,2]
@@ -430,7 +431,7 @@ plot(x=fit.z,ci=TRUE,alpha=alpha)
 \end{figure}
 As visible from the previous output, for the \texttt{dist} argument, \texttt{gev} was specified instead of the previously declared \texttt{GEV}. This is because the \texttt{gev} functions were made available into \texttt{R} when loading the \texttt{FAdist} package at the previous section.
 
-A \texttt{mle} object having been obtained for \texttt{z}, the code chunk below shows how it may be inputted into \texttt{metropolis} to carry out a full Bayesian estimation of the \Sexpr{fit.z[['dist']]} parameters (see Figure~\ref{fig:ex4-2}).
+A \texttt{mle} object having been obtained for \texttt{z}, the code chunk below shows how it may be provided to \texttt{metropolis} in order to carry out a full Bayesian estimation of the \Sexpr{fit.z[['dist']]} parameters (see Figure~\ref{fig:ex4-2}).
 <<ex4-2,fig=TRUE,eval=TRUE,echo=TRUE,include=FALSE>>=
 trans.z <- list(function(x) x, function(x) exp(x), function(x) x)
 bayes.z <- metropolis(model=fit.z,iter=10000,tun=2,trans.list=trans.z)
@@ -460,29 +461,209 @@ for(i in 1:ncol(Q.p.post)) hist(Q.p.post[,i],freq=FALSE,col='steelblue4',main=pa
 \label{fig:ex4-3}
 \end{figure}
 
-Depending on the situation at hand, it is sometimes deemed safer to consider a non-informative (or only weakly informative) prior distribution that is nonetheless proper. This will insure that the resulting posterior will also be proper. Although this might not be necessary here, specification of the prior distribution will allow to illustrate how this is done with \texttt{metropolis}. It should always be kept in mind that the prior distribution will be used on the transformed parameter space, such that it must be defined accordingly. Here's an example:
+Depending on the situation at hand, it is sometimes deemed safer to consider a non-informative (or only weakly informative) prior distribution that is nonetheless proper. This will insure that the resulting posterior is also proper. Although this might not be necessary here, specification of the prior distribution will allow to illustrate how this is done with \texttt{metropolis}. Again, it should always be kept in mind that the prior distribution will be used on the transformed parameter space, such that it must be defined accordingly. Here's an example:
 <<echo=TRUE,eval=FALSE>>=
 prior.z.weak <- function(x) dnorm(x[1],0,1000)*dnorm(x[2],0,1000)*dnorm(x[3],0,1000)
-bayes.z.weak <- metropolis(model=fit.z,iter=11000,tun=2,trans.list=trans.z,prior=prior.z.weak)
+bayes.z.weak <- metropolis(model=fit.z,iter=10000,tun=2,trans.list=trans.z,prior=prior.z.weak)
 @
 
-Finally, this last code chunk illustrates an equivalent way of specifying the previous prior distribution, which suggests that fairly complex prior distributions may be specified using \texttt{metropolis}.
+The following code chunk illustrates an equivalent way of specifying the previous prior distribution, which suggests that fairly complex prior distributions may be specified using \texttt{metropolis}.
 <<echo=TRUE,eval=FALSE>>=
 prior.z.weak.2 <- function(x) dmvnorm(x=x[1:3],mean=rep(0,3),sigma=diag(1000,3))
-bayes.z.weak.2 <- metropolis(model=fit.z,iter=11000,tun=2,trans.list=trans.z,prior=prior.z.weak.2)
+bayes.z.weak.2 <- metropolis(model=fit.z,iter=10000,tun=2,trans.list=trans.z,prior=prior.z.weak.2)
 @
 
+To help further illustrate the point made at the previous paragraph, a final example, taken from \citet{Aucoin}, is presented; an example which corresponds to an application in hydrology, for which the main goal is to enhance flood estimates for large return periods at hydrometric stations where very few historical data are available. In this last example, the goal will therefore be to make use of flood information available at the regional scale in order to elicit a prior distribution for the frequency distribution parameters at a particular site of interest.
 
-\section{Future Versions}
-\label{sec:future_versions}
-
-Below is a list a features that will be made available in future versions of \texttt{FAmle}:
+The first thing to do is to load the dataset used by \citet{Aucoin} into \texttt{R}:
+<<>>=
+data(floodsNB)
+length(floodsNB)
+names(floodsNB)[1:5]
+floodsNB[[3]]
+@
+At large, \texttt{floodsNB} is a list whose elements correspond to individual hydrometric stations located across the Canadian province of New Brunswick (NB), and, in this case, the variable of interest is \texttt{peak} and corresponds to \textit{annual maximum daily peak discharge observations} (in $m^3/s$). As visible from the previous code chunk, the dataset contains flood data from \Sexpr{length(floodsNB)} stations located across NB. However, those stations are not all analyzed in \citet{Aucoin} -- the stations considered for analysis there are identified in \texttt{Aucoin.2011} in the list; i.e.,
+<<>>=
+aucoin.2011 <- names(which(sapply(floodsNB,function(i) i[['Aucoin.2011']])))
+aucoin.2011
+length(aucoin.2011)
+NB <- list()
+for(i in names(floodsNB)) if(is.element(i,aucoin.2011)) NB[[i]] <- floodsNB[[i]]
+@
+Now, before going any further, it should be mentioned that three basic assumptions are made with regards to the annual observations available at the stations retained for analysis in \citet{Aucoin}:
 \begin{itemize}
-	\item For \texttt{metropolis}, the user will be given the option to pass the iterative task to \texttt{C} using \texttt{.Call}.
-	\item This vignette will present more examples pertaining to prior specification using \texttt{metropolis}.
-	\item For \texttt{mle}, the user will be given the option to handle distribution parameters that are functions of covariates.
-	\item This vignette will present some examples to help illustrate the use of \texttt{mle} to fit distributions for which some of the parameters are functions of covariates.
+	\item The at-site annual observations may be treated as independent realizations of some random variable $Y_i$, where $i$ denotes a specific station;
+	\item The random variable $Y_i$ arises from a GEV distribution;
+	\item The data generating process at site $i$ is stationary.
 \end{itemize}
+The above three assumptions were tested using classical hypothesis tests in \citet{Aucoin}, and can therefore be assumed to hold here.
+
+<<echo=FALSE>>=
+st <- '01AJ007'
+@
+
+For illustration's sake, the station of main interest here is chosen to be \Sexpr{st}, for which \Sexpr{length(NB[[st]][['peak']])} peak flood historical observations are available. As already pointed out previously, interest lies in the estimation of quantiles associated with large return periods -- for example, the $.99^{th}$ GEV quantile, which corresponds to the 100-year flood estimate. Obviously, estimating the $.99^{th}$ quantile is problematic here, since only \Sexpr{length(NB[[st]][['peak']])} observations are available. In fact, given the smallness of the observed flood series, this example will also serve to illustrate how to use \texttt{metropolis} without providing an \texttt{mle} object to the \texttt{model} argument: this feature is very useful since, in some instances, prior information will be available for the distribution's parameters, but not enough data will be available to obtain reliable maximum likelihood estimates (and the corresponding observed Fisher's information matrix) using \texttt{mle}. Therefore, without even trying to obtain the maximum likelihood GEV parameter estimates for the data of station \Sexpr{st}, the following code chunk illustrates how to use \texttt{metropolis} without resorting to \texttt{mle}. Actually, as well explained in \texttt{help(metropolis)}, the procedure only requires the specification of a list object containing both the data (\texttt{x}) and the hypothesized distribution; in this case
+<<>>=
+st <- '01AJ007'
+station.x <- NB[[st]]
+ln.drain.x <- station.x[['ln.drain']]
+model.x <- list(x=station.x[['peak']],dist='gev')
+model.x
+@
+
+As already said previously in this document, \texttt{metropolis} requires that the distribution's parameters be made as normal as possible through variable transformation. That said, the GEV scale parameter should be transformed so that it is defined on the real line. To this end, a natural logarithmic transformation may be entertained, whose inverse transformation corresponds to the well-known exponential function; i.e.
+<<>>=
+trans.list.x <- list(function(x) x, function(x) exp(x), function(x) x)
+@
+
+The variable \texttt{trans.list.x} having been declared, the next step is to elicit a prior distribution for the GEV parameters. As proposed by \citet{Aucoin}, for the NB dataset, there exists a well-behaved relationship between site-specific maximum likelihood GEV parameter estimates and their corresponding \textit{drainage area} -- e.g, the drainage area may be extracted as follows:
+<<>>=
+station.x[['ln.drain']]
+@
+More precisely, the idea here is to exploit the latter relationship in order to elicit a prior distribution for the GEV parameters at sites where few historical data are available to yield sensible frequency analyses.
+
+That said, the following code chuck illustrates how the GEV parameters may be estimated by maximum likelihood for the remaining stations.
+<<>>=
+gev.inits <- function(x)
+{
+	sig.hat <- sqrt(var(x)*6/pi^2)
+	mu.hat <- mean(x) - digamma(1)*sig.hat
+	return(c(0.01,sig.hat,mu.hat))	
+}
+nb.stations <- nb.stations.fits <- list()
+for(i in names(NB))
+{
+	if(substr(i,3,3)=='A' & i != st)
+	{
+		temp <- NULL
+		try(temp <- mle(NB[[i]][['peak']],'gev',gev.inits(NB[[i]][['peak']])),silent=TRUE)
+		if(!is.null(temp))
+		{
+			nb.stations[[i]] <- NB[[i]]
+			nb.stations.fits[[i]] <- temp
+		}
+	}
+}		
+f <- function(x) c(x[1],log(x[2:3]))
+nb.stations.par.hat <- t(sapply(nb.stations.fits,function(i) f(i[['par.hat']])))
+colnames(nb.stations.par.hat) <- c('shape','ln.scale','ln.location')
+nb.stations.par.hat[1:5,]
+nb.stations.ln.drain <- sapply(nb.stations,function(i) i[['ln.drain']])
+nb.stations.regs <- lapply(list('shape','ln.scale','ln.location'),
+	function(i) lm(nb.stations.par.hat[,i]~nb.stations.ln.drain))
+names(nb.stations.regs) <- colnames(nb.stations.par.hat)
+@
+Actually, the previous output shows several commands, each of which are now explained in detail:
+\begin{enumerate}
+	\item \texttt{gev.inits} is declared above as a function that generates reasonable initial values, for a given data series, for the optimization algorithm used by \texttt{mle} to get the GEV parameter estimates.
+	\item Information pertaining to stations from sub drainage basin \texttt{A} are stored in a new variable called \texttt{nb.stations}, where it is also made explicit that station \Sexpr{st} does not belong to that group of stations (the data should not be used twice)! At the same time, \texttt{mle} is used to estimate the GEV parameters for all stations and the corresponding fitted models are stored in the new variable \texttt{nb.stations.fits}. In fact, only stations for which optimization of the likelihood function is successful are retained for prior elicitation -- in this context, an optimization failure is often a result of too few historical observations!
+	\item A function called \texttt{f} is declared, which is then used to transform both the GEV scale and location parameters on their natural logarithmic scales.
+	\item The GEV parameter estimates are extracted from \texttt{nb.stations.fits}, transformed and finally stored in a new variable called \texttt{nb.stations.par.hat}.
+	\item For all stations contained in \texttt{nb.stations}, the natural logarithms of the corresponding drainage areas are extracted and stored in a variable called \texttt{nb.stations.ln.drain}.
+	\item The natural logarithm of the drainage area is then used as a predictor to fit three independent linear regression models for the previously obtained parameter estimates -- see Figure~\ref{fig:ex4-4}
+\end{enumerate}
+
+<<ex4-4,eval=TRUE,echo=FALSE,fig=TRUE,include=FALSE,width=5,height=7>>=
+
+par.old <- par(no.readonly=TRUE)
+par(oma=c(4,4,4,4),mar=c(0,4,0,2))
+layout(matrix(1:3,nr=3))
+plot(nb.stations.ln.drain,nb.stations.par.hat[,'shape'],type='n',axes=FALSE,xlab='',ylab='')
+abline(nb.stations.regs[[1]],col='red')
+points(nb.stations.ln.drain,nb.stations.par.hat[,'shape'],pch=19,cex=.8)
+title(ylab='shape',cex.lab=1.2);box()
+axis(2,cex.axis=1,las=2)
+legend('topright',inset=.01,col='red',lty=c(1,0),lwd=c(1,0),c(paste('p-value = ',round(summary(nb.stations.regs[[1]])[['coefficients']][2,4],3),sep=''),paste('R-squared = ',round(summary(nb.stations.regs[[1]])[['r.squared']],3))),bty='n',cex=1.2)
+
+plot(nb.stations.ln.drain,nb.stations.par.hat[,'ln.scale'],type='n',axes=FALSE,xlab='',ylab='')
+abline(nb.stations.regs[[2]],col='red')
+points(nb.stations.ln.drain,nb.stations.par.hat[,'ln.scale'],pch=19,cex=.8)
+title(ylab='ln(scale)',cex.lab=1.2);box()
+axis(4,cex.axis=1,las=2)
+legend('topleft',inset=.01,col='red',lty=c(1,0),lwd=c(1,0),c(paste('p-value = ',round(summary(nb.stations.regs[[2]])[['coefficients']][2,4],3),sep=''), paste('R-squared = ',round(summary(nb.stations.regs[[2]])[['r.squared']],3))),bty='n',cex=1.2)
+
+
+plot(nb.stations.ln.drain,nb.stations.par.hat[,'ln.location'],type='n',axes=FALSE,xlab='',ylab='')
+abline(nb.stations.regs[[3]],col='red')
+points(nb.stations.ln.drain,nb.stations.par.hat[,'ln.location'],pch=19,cex=.8)
+title(ylab='ln(location)',xlab='',cex.lab=1.2);box()
+axis(1,cex.axis=1,las=1);axis(2,cex.axis=1,las=2)
+legend('topleft',inset=.01,col='red',lty=c(1,0),lwd=c(1,0),c(paste('p-value = ',round(summary(nb.stations.regs[[3]])[['coefficients']][2,4],3),sep=''),paste('R-squared = ',round(summary(nb.stations.regs[[3]])[['r.squared']],3))),bty='n',cex=1.2)
+title(xlab='ln(drainage)',outer=TRUE,line=2.5,cex.lab=1.3)
+par(par.old)
+@
+
+\begin{figure}
+\centering
+\includegraphics[width=.8\textwidth]{FAmle-ex4-4}
+\caption{This figure illustrates the relationships between the site-specific maximum likelihood GEV parameter estimates and their corresponding drainage area. Also shown are the regression lines for the corresponding three linear regression models. For each plot, the two sided t-test on the regression slope and the associated R-squared are also given.}
+\label{fig:ex4-4}
+\end{figure}
+
+Now, the final step is to make use of the relationships illustrated by Figure~\ref{fig:ex4-4} in order to elicit a prior distribution for the GEV parameters of station \Sexpr{st}. More precisely, the approach is to propose a multivariate normal prior distribution for the GEV parameters of station \Sexpr{st}, where the mean vector corresponds to the values obtained from the fitted regression models by conditioning on the actual station's drainage area, and by using the multivariate residuals of these three regression models to estimate a covariance matrix. The next code chunk makes everything more obvious:
+<<>>=
+mu.x <- sapply(nb.stations.regs,function(i) as.numeric(coef(i)[1]+coef(i)[2]*ln.drain.x))
+mu.x
+residuals.x <- sapply(nb.stations.regs,residuals)
+sigma.x <- t(residuals.x)%*%residuals.x/nrow(residuals.x)
+sigma.x
+@
+The prior distribution whose parameters are presented in the previous code chunk suggests viewing the extra stations' GEV maximum likelihood parameter estimates as error-free realized values of some multivariate normal random variable. In other words, it is assumed that those estimates, when considered as a whole, will allow to approximate, with reasonable accuracy, the hierarchical structure that exists between the GEV parameters and the drainage area (as shown by Figure~\ref{fig:ex4-4}). In fact, all stations could be fitted simultaneously as part of a hierarchical model, but the conceptual difficulty with that approach is that the likelihood function would have to account for spatial dependence between the annual maxima observed at different stations. As discussed by \citet{Aucoin}, the assumption stated above, although it might appear unreasonable at first thought, is certainly more reasonable than attempting to model the spatial dependence between the annual maxima, especially when such dependence is of no particular interest. 
+
+That said, the variables \texttt{mu.x} and \texttt{sigma.x} may be used to declare a prior distribution for the GEV parameters of station \Sexpr{st} i.e.
+<<>>=
+prior.x <- function(p) dmvnorm(x=c(p[1:2],log(p[3])),mean=mu.x,sigma=sigma.x)
+@
+Finally, the model may now be estimated using \texttt{metropolis} - note the difference between the arguments specified in previous occurrences of \texttt{metropolis} and the one below.
+<<ex4-5,eval=TRUE,echo=TRUE,fig=TRUE,include=FALSE>>=
+inits.1 <- gev.inits(model.x[['x']])
+inits.1[2] <- log(inits.1[2])
+bayes.x.1 <- metropolis(model=model.x,iter=5000,trans.list=trans.list.x,start=inits.1,variance=diag(.1,3),prior=prior.x,pass.down.to.C=TRUE)
+plot(bayes.x.1)
+@
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{FAmle-ex4-5}
+\caption{Trace plots for the object \texttt{bayes.x.1}.}
+\label{fig:ex4-5}
+\end{figure}
+Inspection of the trace plots shown by Figure~\ref{fig:ex4-5} suggests that the Metropolis algorithm could use some tuning in order to improve mixing of the chain. Using the guidelines given by \citet{MCMC} and \citet{BMDA}, for example, the following code chunk illustrates how tuning may be carried out using the output from \texttt{bayes.x.1}.
+<<ex4-6,eval=TRUE,echo=TRUE,fig=TRUE,include=FALSE>>=
+start.x <- bayes.x.1[['M']]
+variance.x <- bayes.x.1[['V']]
+bayes.x.2 <- metropolis(model=model.x,iter=15000,trans.list=trans.list.x,start=start.x,variance=variance.x,prior=prior.x,pass.down.to.C=TRUE)
+plot(bayes.x.2)
+@
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{FAmle-ex4-6}
+\caption{Trace plots for the object \texttt{bayes.x.2}}
+\label{fig:ex4-6}
+\end{figure}
+Figure~\ref{fig:ex4-6} suggests that the posterior distribution may be well approximated by the correlated draws contained in \texttt{bayes.x.2}, such that it now seems reasonable to use the latter to approximate the posterior distributions of some quantiles of interest, which are shown by Figure~\ref{fig:ex4-7}. Although somewhat sparse, the posterior distribution of the 100-year flood is still very informative, especially given the relatively small sample of size \Sexpr{length(model.x[['x']])} used in its estimation.
+
+
+<<ex4-7,fig=TRUE,eval=TRUE,echo=TRUE,include=FALSE,width=8,height=4>>=
+prior.draws <- rmvnorm(100000,mu.x,sigma.x)
+prior.draws[,2:3] <- exp(prior.draws[,2:3])
+p <- c(.5,.9,.99)
+Q.p.post <- sapply(as.list(p),function(h) distr(x=h,dist='gev',param=bayes.x.2[['sims']],type='q'))
+Q.p.prior <- sapply(as.list(p),function(h) distr(x=h,dist='gev',param=prior.draws,type='q'))
+layout(matrix(1:length(p),nr=1))
+for(i in 1:ncol(Q.p.post))
+{
+	hist(Q.p.post[,i],freq=FALSE,col='steelblue4',main=paste('T = ',1/(1-p[i]),sep=''),xlab='')
+	lines(density(Q.p.prior[,i],bw=3),col='red')
+}
+@
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{FAmle-ex4-7}
+\caption{Posterior quantile distributions (blue histograms) obtained using the \texttt{bayes.x.2} object. In addition, the density estimates of the corresponding prior distributions (red curves) are also presented.}
+\label{fig:ex4-7}
+\end{figure}
+
+\clearpage
 
 \bibliographystyle{authordate2}
 \bibliography{FAmleBIB}

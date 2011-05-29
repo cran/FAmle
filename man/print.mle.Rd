@@ -1,5 +1,5 @@
 \name{print.mle}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{print.mle}
 \title{Maximum Likelihood Estimation of Univariate Probability Distributions}
 \description{See \code{\link{mle}}.}

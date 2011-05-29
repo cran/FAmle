@@ -1,5 +1,5 @@
 \name{distr}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{distr}
 \title{Distribution functions 4-in-1}
 \description{This function can be used to call any of the 4 functions specific to a given probability distribution available in \R.}

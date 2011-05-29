@@ -1,5 +1,5 @@
 \name{print.metropolis}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{print.metropolis}
 \title{Bayesian Estimation of Univariate Probability Distributions}
 \description{See \code{\link{metropolis}}.}

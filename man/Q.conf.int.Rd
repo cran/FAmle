@@ -1,5 +1,5 @@
 \name{Q.conf.int}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{Q.conf.int}
 \title{Approximate Confidence Intervals for p-th Quantile}
 \description{This function can be used to derive approximate confidence intervals for the \code{p}-th quantile of the fitted distribution (see \code{\link{mle}}).}

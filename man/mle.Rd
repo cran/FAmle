@@ -1,5 +1,5 @@
 \name{mle}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{mle}
 \title{Maximum Likelihood Estimation of Univariate Probability Distributions}
 \description{For a given dataset, this function serves to find maximum likelihood parameter estimates for some specified parametric probability distribution.}

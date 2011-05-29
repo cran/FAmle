@@ -1,5 +1,5 @@
 \name{plot.mle}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{plot.mle}
 \title{Diagnostic Plots for the Fitted Model}
 \description{This function returns diagnotic plots for a \code{\link{mle}} object.}

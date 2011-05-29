@@ -1,5 +1,5 @@
 \name{FAmle-package}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{FAmle-package}
 \alias{FAmle}
 \docType{package}

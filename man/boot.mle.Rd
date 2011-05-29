@@ -1,5 +1,5 @@
 \name{boot.mle}
-\Rdversion{1.1}
+\Rdversion{1.2}
 \alias{boot.mle}
 \title{Bootstrap Distribution for Fitted Model}
 \description{This function allows the user to obtain draws from the (parametric) bootstrap distribution of the fitted model's parameters.}
