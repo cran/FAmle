@@ -11,7 +11,7 @@ Francois Aucoin
 
 Maintainer: Francois Aucoin <frank.aucoin@gmail.com>
 
-Site: \url{https://sites.google.com/site/aucoinstat/}
+Site: \url{https://sites.google.com/site/frunkaucoin/}
 }
 
 \keyword{package}

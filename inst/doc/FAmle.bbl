@@ -1,19 +1,9 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citename{Aucoin, }2011a]{Aucoin}
-Aucoin, F. 2011a.
-\newblock {An Empirical Bayes Approach to the Regional Flood Frequency Analysis
-  of New Brunswick Rivers: A Case Study}.
-\newblock {\em {Submitted to Bayesian Analysis}}.
-\newblock
-  \url{https://7428445935552024321-a-1802744773732722657-s-sites.googlegroups.%
-com/site/aucoinstat/articles/FrançoisAucoin-EmpiricalBayesFloodsNewBrunswick.%
-pdf?}
-
-\bibitem[\protect\citename{Aucoin, }2011b]{FAdist}
-Aucoin, F. 2011b.
+\bibitem[\protect\citename{Aucoin, }2011]{FAdist}
+Aucoin, F. 2011.
 \newblock {\em {FAdist: Distributions that are Sometimes used in Hydrology}}.
-\newblock R package version 1.0;
+\newblock R package version 2.0;
   \url{http://cran.r-project.org/package=FAdist}.
 
 \bibitem[\protect\citename{Box \& Tiao, }1973]{Tiao}

@@ -473,16 +473,16 @@ prior.z.weak.2 <- function(x) dmvnorm(x=x[1:3],mean=rep(0,3),sigma=diag(1000,3))
 bayes.z.weak.2 <- metropolis(model=fit.z,iter=10000,tun=2,trans.list=trans.z,prior=prior.z.weak.2)
 @
 
-To help further illustrate the point made at the previous paragraph, a final example, taken from \citet{Aucoin}, is presented; an example which corresponds to an application in hydrology, for which the main goal is to enhance flood estimates for large return periods at hydrometric stations where very few historical data are available. In this last example, the goal will therefore be to make use of flood information available at the regional scale in order to elicit a prior distribution for the frequency distribution parameters at a particular site of interest.
+To help further illustrate the point made at the previous paragraph, a final example is presented; an example which corresponds to an application in hydrology, for which the main goal is to enhance flood estimates for large return periods at hydrometric stations where very few historical data are available. In this last example, the goal will therefore be to make use of flood information available at the regional scale in order to elicit a prior distribution for the frequency distribution parameters at a particular site of interest.
 
-The first thing to do is to load the dataset used by \citet{Aucoin} into \texttt{R}:
+The first thing to do is to load the dataset into \texttt{R}:
 <<>>=
 data(floodsNB)
 length(floodsNB)
 names(floodsNB)[1:5]
 floodsNB[[3]]
 @
-At large, \texttt{floodsNB} is a list whose elements correspond to individual hydrometric stations located across the Canadian province of New Brunswick (NB), and, in this case, the variable of interest is \texttt{peak} and corresponds to \textit{annual maximum daily peak discharge observations} (in $m^3/s$). As visible from the previous code chunk, the dataset contains flood data from \Sexpr{length(floodsNB)} stations located across NB. However, those stations are not all analyzed in \citet{Aucoin} -- the stations considered for analysis there are identified in \texttt{Aucoin.2011} in the list; i.e.,
+At large, \texttt{floodsNB} is a list whose elements correspond to individual hydrometric stations located across the Canadian province of New Brunswick (NB), and, in this case, the variable of interest is \texttt{peak} and corresponds to \textit{annual maximum daily peak discharge observations} (in $m^3/s$). As visible from the previous code chunk, the dataset contains flood data from \Sexpr{length(floodsNB)} stations located across NB. However, not all stations will be analyzed here -- the stations considered for analysis are identified in \texttt{Aucoin.2011} in the list; i.e.,
 <<>>=
 aucoin.2011 <- names(which(sapply(floodsNB,function(i) i[['Aucoin.2011']])))
 aucoin.2011
@@ -490,19 +490,19 @@ length(aucoin.2011)
 NB <- list()
 for(i in names(floodsNB)) if(is.element(i,aucoin.2011)) NB[[i]] <- floodsNB[[i]]
 @
-Now, before going any further, it should be mentioned that three basic assumptions are made with regards to the annual observations available at the stations retained for analysis in \citet{Aucoin}:
+Now, before going any further, it should be mentioned that three basic assumptions are made with regards to the annual observations available at the stations retained for analysis:
 \begin{itemize}
 	\item The at-site annual observations may be treated as independent realizations of some random variable $Y_i$, where $i$ denotes a specific station;
 	\item The random variable $Y_i$ arises from a GEV distribution;
 	\item The data generating process at site $i$ is stationary.
 \end{itemize}
-The above three assumptions were tested using classical hypothesis tests in \citet{Aucoin}, and can therefore be assumed to hold here.
+The above assumptions will not be explicitly tested here.
 
 <<echo=FALSE>>=
 st <- '01AJ007'
 @
 
-For illustration's sake, the station of main interest here is chosen to be \Sexpr{st}, for which \Sexpr{length(NB[[st]][['peak']])} peak flood historical observations are available. As already pointed out previously, interest lies in the estimation of quantiles associated with large return periods -- for example, the $.99^{th}$ GEV quantile, which corresponds to the 100-year flood estimate. Obviously, estimating the $.99^{th}$ quantile is problematic here, since only \Sexpr{length(NB[[st]][['peak']])} observations are available. In fact, given the smallness of the observed flood series, this example will also serve to illustrate how to use \texttt{metropolis} without providing an \texttt{mle} object to the \texttt{model} argument: this feature is very useful since, in some instances, prior information will be available for the distribution's parameters, but not enough data will be available to obtain reliable maximum likelihood estimates (and the corresponding observed Fisher's information matrix) using \texttt{mle}. Therefore, without even trying to obtain the maximum likelihood GEV parameter estimates for the data of station \Sexpr{st}, the following code chunk illustrates how to use \texttt{metropolis} without resorting to \texttt{mle}. Actually, as well explained in \texttt{help(metropolis)}, the procedure only requires the specification of a list object containing both the data (\texttt{x}) and the hypothesized distribution; in this case
+For illustration's sake, the station of main interest here is chosen to be \Sexpr{st}, for which \Sexpr{length(NB[[st]][['peak']])} peak flood historical observations are available. As already pointed out previously, interest lies in the estimation of quantiles associated with large return periods -- for example, the $.99^{th}$ GEV quantile, which corresponds to the 100-year flood. Obviously, estimating the $.99^{th}$ quantile is problematic here, since only \Sexpr{length(NB[[st]][['peak']])} observations are available. In fact, given the smallness of the observed flood series, this example will also serve to illustrate how to use \texttt{metropolis} without providing an \texttt{mle} object to the \texttt{model} argument: this feature is very useful since, in some instances, prior information will be available for the distribution's parameters, but not enough data will be available to obtain reliable maximum likelihood estimates (and the corresponding observed Fisher's information matrix) using \texttt{mle}. Therefore, without even trying to obtain the maximum likelihood GEV parameter estimates for the data of station \Sexpr{st}, the following code chunk illustrates how to use \texttt{metropolis} without resorting to \texttt{mle}. Actually, as well explained in \texttt{help(metropolis)}, the procedure only requires the specification of a list object containing both the data (\texttt{x}) and the hypothesized distribution; in this case
 <<>>=
 st <- '01AJ007'
 station.x <- NB[[st]]
@@ -516,13 +516,13 @@ As already said previously in this document, \texttt{metropolis} requires that t
 trans.list.x <- list(function(x) x, function(x) exp(x), function(x) x)
 @
 
-The variable \texttt{trans.list.x} having been declared, the next step is to elicit a prior distribution for the GEV parameters. As proposed by \citet{Aucoin}, for the NB dataset, there exists a well-behaved relationship between site-specific maximum likelihood GEV parameter estimates and their corresponding \textit{drainage area} -- e.g, the drainage area may be extracted as follows:
+The variable \texttt{trans.list.x} having been declared, the next step is to elicit a prior distribution for the GEV parameters. For the NB dataset, there exists a well-behaved relationship between site-specific maximum likelihood GEV parameter estimates and their corresponding \textit{drainage area}. Here the drainage area may be extracted as follows:
 <<>>=
 station.x[['ln.drain']]
 @
-More precisely, the idea here is to exploit the latter relationship in order to elicit a prior distribution for the GEV parameters at sites where few historical data are available to yield sensible frequency analyses.
+More precisely, the idea here is to exploit this relationship in order to elicit a prior distribution for the GEV parameters at sites where few historical data are available to yield sensible frequency analyses.
 
-That said, the following code chuck illustrates how the GEV parameters may be estimated by maximum likelihood for the remaining stations.
+The following code chuck illustrates how the GEV parameters may be estimated by maximum likelihood for the remaining stations.
 <<>>=
 gev.inits <- function(x)
 {
@@ -553,7 +553,7 @@ nb.stations.regs <- lapply(list('shape','ln.scale','ln.location'),
 	function(i) lm(nb.stations.par.hat[,i]~nb.stations.ln.drain))
 names(nb.stations.regs) <- colnames(nb.stations.par.hat)
 @
-Actually, the previous output shows several commands, each of which are now explained in detail:
+The previous output shows several commands, each of which are now explained in detail:
 \begin{enumerate}
 	\item \texttt{gev.inits} is declared above as a function that generates reasonable initial values, for a given data series, for the optimization algorithm used by \texttt{mle} to get the GEV parameter estimates.
 	\item Information pertaining to stations from sub drainage basin \texttt{A} are stored in a new variable called \texttt{nb.stations}, where it is also made explicit that station \Sexpr{st} does not belong to that group of stations (the data should not be used twice)! At the same time, \texttt{mle} is used to estimate the GEV parameters for all stations and the corresponding fitted models are stored in the new variable \texttt{nb.stations.fits}. In fact, only stations for which optimization of the likelihood function is successful are retained for prior elicitation -- in this context, an optimization failure is often a result of too few historical observations!
@@ -600,7 +600,7 @@ par(par.old)
 \label{fig:ex4-4}
 \end{figure}
 
-Now, the final step is to make use of the relationships illustrated by Figure~\ref{fig:ex4-4} in order to elicit a prior distribution for the GEV parameters of station \Sexpr{st}. More precisely, the approach is to propose a multivariate normal prior distribution for the GEV parameters of station \Sexpr{st}, where the mean vector corresponds to the values obtained from the fitted regression models by conditioning on the actual station's drainage area, and by using the multivariate residuals of these three regression models to estimate a covariance matrix. The next code chunk makes everything more obvious:
+Now, the final step is to make use of the relationships illustrated by Figure~\ref{fig:ex4-4} in order to elicit a prior distribution for the GEV parameters of station \Sexpr{st}. More precisely, the approach is to propose a multivariate normal prior distribution for the GEV parameters of station \Sexpr{st}, where the mean vector corresponds to the values obtained from the fitted regression models by conditioning on the actual station's drainage area, and by using the multivariate residuals of these three regression models to estimate a covariance matrix.
 <<>>=
 mu.x <- sapply(nb.stations.regs,function(i) as.numeric(coef(i)[1]+coef(i)[2]*ln.drain.x))
 mu.x
@@ -608,7 +608,7 @@ residuals.x <- sapply(nb.stations.regs,residuals)
 sigma.x <- t(residuals.x)%*%residuals.x/nrow(residuals.x)
 sigma.x
 @
-The prior distribution whose parameters are presented in the previous code chunk suggests viewing the extra stations' GEV maximum likelihood parameter estimates as error-free realized values of some multivariate normal random variable. In other words, it is assumed that those estimates, when considered as a whole, will allow to approximate, with reasonable accuracy, the hierarchical structure that exists between the GEV parameters and the drainage area (as shown by Figure~\ref{fig:ex4-4}). In fact, all stations could be fitted simultaneously as part of a hierarchical model, but the conceptual difficulty with that approach is that the likelihood function would have to account for spatial dependence between the annual maxima observed at different stations. As discussed by \citet{Aucoin}, the assumption stated above, although it might appear unreasonable at first thought, is certainly more reasonable than attempting to model the spatial dependence between the annual maxima, especially when such dependence is of no particular interest. 
+The prior distribution whose parameters are presented in the previous code chunk suggests viewing the extra stations' GEV maximum likelihood parameter estimates as error-free realized values of some multivariate normal random variable. In other words, it is assumed that those estimates, when considered as a whole, will allow to approximate, with reasonable accuracy, the hierarchical structure that exists between the GEV parameters and the drainage area (as shown by Figure~\ref{fig:ex4-4}). In fact, all stations could be fitted simultaneously as part of a hierarchical model, but the conceptual difficulty with that approach is that the likelihood function would have to account for spatial dependence between the annual maxima observed at different stations. The assumption stated above, although it might appear unreasonable at first thought, is certainly more reasonable than attempting to model the spatial dependence between the annual maxima, especially when such dependence is of no particular interest. 
 
 That said, the variables \texttt{mu.x} and \texttt{sigma.x} may be used to declare a prior distribution for the GEV parameters of station \Sexpr{st} i.e.
 <<>>=
