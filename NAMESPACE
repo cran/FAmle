@@ -1,0 +1,5 @@
+useDynLib("FAmle")
+
+import(mvtnorm)
+
+exportPattern("^[[:alpha:]]+")
