@@ -1,5 +1,5 @@
-ade0339d2660494da5d76de08fb040c9 *DESCRIPTION
-598edd19f0060a120af07f7beef3bf8e *NAMESPACE
+270ab9a6a733598ab100b5d414115cb2 *DESCRIPTION
+65845265e618f17dae8dcad06776d3c9 *NAMESPACE
 43eb29fd1868e69456efdbfac5cdaed3 *R/Carlin.R
 10c5ff0f499c24b0ec0fd24a0d8f6330 *R/Diff.1.R
 9c57626b48eba334393c31fa5f10e8fa *R/Diff.2.R
@@ -24,14 +24,14 @@ d9a8c6391b709cb857f9183218288062 *R/plot.metropolis.R
 dd97b2fdb5b3a9a26753891d2dd8da45 *R/print.metropolis.R
 514a6e47e8d7d12d57d9416a02bfe6d6 *R/print.mle.R
 124a3de89135fba953782269c4f7d462 *R/zzz.R
-933da71215c30f1c11b4bd43551796f5 *build/vignette.rds
+9827f617bfb5325f49590d4f18562a48 *build/vignette.rds
 72ec22ee686f3751bc708b2492ee8a0a *data/ColesData.txt.gz
 46c1f2fd33be1bce1581751a5510ea72 *data/floodsNB.rdata
 2b27bd3c9b35223c52dd38ad8c1979b2 *data/station01AJ010.rdata
 18376fd5f72862a3f893257f95f16fca *data/yarns.txt.gz
-c5a015d642ddaa258d272c0b392d36de *inst/doc/FAmle.R
-901602b672684dc64bab38409ac66697 *inst/doc/FAmle.pdf
-935560bcdee050f43426b0bf2cd4d05f *inst/doc/FAmle.rnw
+e781df4d5ea974aafb0eb3b50200ca92 *inst/doc/FAmle.R
+e6ef2fe356686e85ccb2081810efcf83 *inst/doc/FAmle.pdf
+87b31c5daf4f32df344fdbad4c2a4c44 *inst/doc/FAmle.rnw
 f033533977849dba033c19a2711eff79 *man/ColesData.Rd
 bbd00cd8227c265a4cbba5b7b889c38a *man/FAmle-internal.Rd
 ad6b2801078bf5f4799cfed8168e60c3 *man/FAmle-package.Rd
@@ -49,5 +49,5 @@ e25d0e4c4937f9ad5a3f852ec79aa9cb *man/plot.metropolis.Rd
 e881c165e43f10e10f4ca20af5ee3457 *man/station01AJ010.Rd
 d601f0c766b18052e132270fb30d1fee *man/yarns.Rd
 0d9958ef71832cf235db2ec6e8238ff1 *src/metropolis.c
-935560bcdee050f43426b0bf2cd4d05f *vignettes/FAmle.rnw
+87b31c5daf4f32df344fdbad4c2a4c44 *vignettes/FAmle.rnw
 2ee6764ee77d1c6e0cfd58c5e4434ba3 *vignettes/FAmleBIB.bib
