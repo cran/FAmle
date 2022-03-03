@@ -1,5 +1,4 @@
 ### R code from vignette source 'FAmle.rnw'
-### Encoding: ISO8859-1
 
 ###################################################
 ### code chunk number 1: FAmle.rnw:24-25
